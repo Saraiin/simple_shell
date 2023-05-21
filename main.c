@@ -11,8 +11,8 @@
  */
 int main(void)
 {
-	int totalchar;
-	char *buffLine, *buffLinecpy;
+	int totalchar, i;
+	char *buffLine, *buffLinecpy, **av;
 	size_t length;
 
 	while (1)
@@ -32,8 +32,13 @@ int main(void)
 			return (-1);
 		}
 		buffLinecpy = str_dup(buffLine);
-		spliteLine(buffLine, buffLinecpy);	
+		av = splitline(buffLine, buffLinecpy);
+		for (i = 0; i < 4; i++)
+		{
+			printf("%s\n", av[i]);
+		}
 	}
+	free(buffLinecpy);
 	free(buffLine);
 	return (0);
 }
