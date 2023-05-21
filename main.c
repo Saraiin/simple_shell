@@ -1,3 +1,4 @@
+#include "lshell.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,27 +13,21 @@ int main(int ac, char **av)
 {
 	int totalchar, totalofarg = 0;
 	char *delim = " ";
-	char *token, *buffer;
+	char *token, *buffLine;
 	size_t length;
 
 	while (1)
 	{
-		printf("little_shell :)");
-		totalchar = getline(&buffer, &length, stdin);
+		write(1, "little_shell:)", 14);
+		totalchar = getline(&buffLine, &length, stdin);
 		if (totalchar == -1)
 		{
 			free(buffer);
 			printf("exiting little shell\n");
 			return (-1);
 		}
-		token = strtok(buffer, delim);
-		while (token != NULL)
-		{
-			totalofarg++;
-			printf("args: %s\n",token);
-			token = strtok(NULL, delim);
-		}
-		printf("number of args : %d\n", totalofarg);
+		
 	}
+	free(buffLine);
 	return (0);
 }
