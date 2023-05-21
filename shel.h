@@ -1,5 +1,5 @@
-#ifndef LSHELL_H
-#define LSHELL_H
+#ifndef SHEL_H
+#define SHEL_H
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
