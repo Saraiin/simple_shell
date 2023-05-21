@@ -7,7 +7,7 @@ char **splitline(char *line, char *linecpy)
 	const char *separator = " \n";
 	char **args;
 
-	num_Tokens = numberOfToken(line);
+	num_Tokens = numberOfToken(line, separator);
 	args = malloc(sizeof(char *) * num_Tokens);
 	if (args == NULL)
 	{

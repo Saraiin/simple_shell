@@ -37,7 +37,35 @@ char *str_dup(char *s)
 	return (duplicatedS);
 }
 
-
-int numberOfToken(char *line)
+/**
+ * numberOfToken - calculate number of tokes in line
+ * @line: line to check
+ * @separator: delim that separete tokens
+ */
+int numberOfToken(char *line, const char *separator)
 {
+	int nb = 0;
+	char *token;
+
+	token = strtok(line, separator);
+	while (token)
+	{
+		nb++;
+		token = strtok(NULL, separator);
+	}
+	return (nb);
+}
+/**
+ * str_cpy - copy string
+ * @dest: printer to destination where to copy
+ * @src: printer to the original string
+ */
+char *str_cpy(char *dest, char *src)
+{
+	int i, srcln = 0;
+
+	srcln = str_len(src);
+	for (i = 0; i <= srcln; i++)
+		dest[i] = src[i];
+	return (dest);
 }
