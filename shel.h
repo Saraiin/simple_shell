@@ -9,5 +9,6 @@
 /* for string */
 int str_len(char *s);
 char *str_dup(char *s);
-
+/*parsing the input line */
+char **splitline(char *line, char *linecpy);
 #endif

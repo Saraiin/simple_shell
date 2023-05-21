@@ -36,3 +36,8 @@ char *str_dup(char *s)
 	duplicatedS[i] = '\0';
 	return (duplicatedS);
 }
+
+
+int numberOfToken(char *line)
+{
+}
