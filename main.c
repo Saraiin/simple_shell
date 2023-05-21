@@ -9,11 +9,10 @@
  * @av: array
  * Return: 0
  */
-int main(int ac, char **av)
+int main(void)
 {
-	int totalchar, totalofarg = 0;
-	char *delim = " ";
-	char *token, *buffLine, *buffLinecpy;
+	int totalchar;
+	char *buffLine, *buffLinecpy;
 	size_t length;
 
 	while (1)
@@ -33,9 +32,7 @@ int main(int ac, char **av)
 			return (-1);
 		}
 		buffLinecpy = str_dup(buffLine);
-		printf("real line : %s\n", buffLine);
-		printf("fakeLine : %s\n", buffLinecpy);
-		
+		spliteLine(buffLine, buffLinecpy);	
 	}
 	free(buffLine);
 	return (0);
