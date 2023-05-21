@@ -7,7 +7,7 @@
 #include <errno.h>
 
 /* for string */
-size_t str_len(char *s);
+int str_len(char *s);
 char *str_dup(char *s);
 
 #endif
