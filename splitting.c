@@ -2,7 +2,7 @@
 
 char **splitline(char *line, char *linecpy)
 {
-	char *token = NULL;
+	char *token;
 	int i, num_Tokens = 0;
 	const char *separator = " \n";
 	char **args;
