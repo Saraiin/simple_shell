@@ -1,4 +1,4 @@
-#include "shel.c"
+#include "shel.h"
 char getPath(char *cmd)
 {
 }
@@ -12,7 +12,7 @@ void exectcmd(char **args)
 	{
 		cmd = args[0];
 		cmdpath = getPath(cmd);
-		test = execve(cmdpath, argv, NULL);
+		test = execve(cmdpath, args, NULL);
 		if (test == -1)
 			perror("Error path");
 	}
