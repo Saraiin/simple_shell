@@ -13,5 +13,6 @@ char *str_cpy(char *dest, char *src);
 /*parsing the input line */
 char **splitline(char *line, char *linecpy);
 int numberOfToken(char *line, const char *separator);
-
+/*executer*/
+void exectcmd(char **args);
 #endif

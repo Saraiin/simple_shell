@@ -33,10 +33,7 @@ int main(void)
 		}
 		buffLinecpy = str_dup(buffLine);
 		av = splitline(buffLine, buffLinecpy);
-		for (i = 0; i < 4; i++)
-		{
-			printf("%s\n", av[i]);
-		}
+		execmd(av);
 	}
 	free(buffLinecpy);
 	free(buffLine);

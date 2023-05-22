@@ -69,3 +69,22 @@ char *str_cpy(char *dest, char *src)
 		dest[i] = src[i];
 	return (dest);
 }
+/**
+ * str_cat - concatenates two strings
+ * @s1: first string
+ * @s2: second string
+ * Return: first string concatenated with the second
+ */
+char *str_cat(char *s1, char *s2)
+{
+	int len_s1 = 0, len_s2 = 0;
+	int i, j;
+
+	len_s1 = str_len(s1);
+	len_s2 = str_len(s2);
+
+	for (i = 0, j = len_s1; i < len_s2; i++, j++)
+		s1[j] = s2[i];
+	s1[j] = '\0';
+	return (s1);
+}
