@@ -3,6 +3,28 @@
  *
  *
  */
+char * get_env(const char *envname)
+{
+	char **var, **envp = environ;
+
+	while (envp != NULL)
+	{
+		var = strtok(*envp, "=");
+	if (variable)
+	{
+		if(str_cmp(*var, envname) == 0)
+			return (*(var + 1 ));
+	}
+	free(var);
+	envp++;
+	}
+	free(envp);
+	return (NULL);
+}
+/**
+ *
+ *
+ */
 int (*getMyFunc(char *))(int ac, char **args, char ***env, int status)
 {
 	int i = 0;
