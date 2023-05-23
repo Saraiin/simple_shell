@@ -24,6 +24,34 @@ char * get_env(const char *envname)
 /**
  *
  *
+ *
+ */
+char *get_envar(const char *envname, char **arenv)
+{
+	char **envp = arenv;
+	char *var;
+	char *token;
+
+	while (envp != NULL)
+	{
+		var = str_dup(*envp);
+		if (!var)
+			return (NULL);
+		token = strtok(var, "=");
+		if (token)
+		{
+			if(str_cmp(token, envname) == 0)
+				return (strtok(NULL, "\0"));
+		}
+		envp++;
+		free(var);
+	}
+	free(envp);
+	return (NULL);
+}
+/**
+ *
+ *
  */
 int (*getMyFunc(char *))(int ac, char **args, char ***env, int status)
 {
