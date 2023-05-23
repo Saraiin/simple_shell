@@ -20,3 +20,23 @@ int str_cmp(char *s1, const char *s2)
 	difference = s1[j] - s2[j];
 	return (difference);
 }
+/**
+ */
+int printenv(int ac, char **args, char ***ptenv, int status)
+{
+	char **envp = *ptenv;
+
+	if (ac > 2)
+	{
+		write(STDERR_FILENO, "error : env", str_len("error : env"));
+		write(STDOUT_FILENO, "\n", 1);
+		return (1);
+	}
+	while (*envp != NULL)
+	{
+		write(STDOUT_FILENO, *envp, str_lrn(*envp));
+		write(STDOUT_FILENO, "\n", 1);
+		envp++;
+	}
+	return (0);
+}
