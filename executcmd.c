@@ -1,4 +1,32 @@
 #include "shel.h"
+/**
+ *
+ *
+ */
+int (*getMyFunc(char *))(int ac, char **args, char ***env, int status)
+{
+	int i = 0;
+	funcbuild_t b[] = {
+		{"exit", exitt},
+		{"env", printenv},
+		{"cd", cdd},
+		{NULL, NULL}
+	};
+	while (i < 4)
+	{
+		if (!str_cmp(b[i].cmd, c))
+			return (b[i].func);
+		i++;
+	}
+	return (NULL);
+}
+
+
+/**
+ *
+ *
+ * 
+ */
 char getPath(char *cmd)
 {
 	char *path, *pathcpy, tokens;
