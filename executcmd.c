@@ -53,7 +53,7 @@ char *get_envar(const char *envname, char **arenv)
  *
  *
  */
-int (*getMyFunc(char *))(int ac, char **args, char ***env, int status)
+int (*callMyFunc(char *))(int ac, char **args, char ***env, int status)
 {
 	int i = 0;
 	funcbuild_t b[] = {
@@ -116,18 +116,45 @@ char getPath(char *cmd)
 /*
  *
  */
-void exectcmd(char **args)
+void exectcmd(int ac, char **av, char ***envpt, int status)
 {
-	char *cmd = NULL;
-	char *cmdpath = NULL;
-	int test;
-
-	if (args != NULL)
+	int st;
+	int (*myfunc)(int ac, char **args, char ***envpt, int st);
+	pid_t pid;
+	char *cmd = NULL, *envpath = NULL;
+	
+	envpath = get_envar("PATH", *envpt)
+	if (av != NULL)
 	{
-		cmd = args[0];
-		cmdpath = getPath(cmd);
-		test = execve(cmdpath, args, NULL);
-		if (test == -1)
-			perror("Error path");
-	}
+		myfunc = callMyFunc(av[1]);
+		if (myfunc != NULL)
+			return (myfunc(ac, av, envpt, status));
+		cmd = getPath(argv[1], envpath);
+		if (cmd != NULL)
+		{
+			pid = fork();
+			if (pid == -1)
+			{
+				perror("ERROR : fork");
+				return (1);
+			}
+			if (pid == 0)
+			{
+				if (execve(cmd, av + 1, *envpt) == -1)
+				{
+					free(cmd);
+					perror("ERROR : execve");
+					exit(errno);
+				}
+			}
+			wait(&st);
+			free(cmd);
+			return (WEEXITSTATUS(st));
+		}
+		else
+		{
+			write(STDERR_FILENO, "command not found", 17);
+			return (127);
+		}
+		return (0);
 }
