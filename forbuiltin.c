@@ -65,4 +65,3 @@ int exitt(int ac, char **args, char ***ptenv, int prstatus)
 		status = prstatus;
 	exit(status);
 }
-
