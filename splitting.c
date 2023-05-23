@@ -1,5 +1,10 @@
 #include "shel.h"
-
+/**
+ * splitline - split line into argument
+ * @line:line to split
+ * @linecpy: copy of line
+ * Return: array of argument
+ */
 char **splitline(char *line, char *linecpy)
 {
 	char *token;

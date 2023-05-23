@@ -21,6 +21,12 @@ int str_cmp(char *s1, const char *s2)
 	return (difference);
 }
 /**
+ * printenv - print the environnement vvariable
+ * @ac: number of argument
+ * @args: arguments
+ * @ptenv: pointer to environnement variable
+ * @status: status
+ * Return: environnement variable
  */
 int printenv(int ac, char **args, char ***ptenv, int status)
 {

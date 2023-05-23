@@ -1,9 +1,10 @@
 #include "shel.h"
 /**
- *
- *
+ * get_env - get environnment variable
+ * @envname: name of the environnement variable
+ * Return: environnment variable value
  */
-char * get_env(const char *envname)
+char *get_env(const char *envname)
 {
 	char **var, **envp = environ;
 
@@ -12,8 +13,8 @@ char * get_env(const char *envname)
 		var = strtok(*envp, "=");
 	if (variable)
 	{
-		if(str_cmp(*var, envname) == 0)
-			return (*(var + 1 ));
+		if (str_cmp(*var, envname) == 0)
+			return (*(var + 1));
 	}
 	free(var);
 	envp++;
@@ -22,9 +23,10 @@ char * get_env(const char *envname)
 	return (NULL);
 }
 /**
- *
- *
- *
+ * get_envar - get env variable
+ * @envname: env variable's name
+ * @arenv: array of environnement variable
+ * Return: environnement variable value
  */
 char *get_envar(const char *envname, char **arenv)
 {
@@ -40,7 +42,7 @@ char *get_envar(const char *envname, char **arenv)
 		token = strtok(var, "=");
 		if (token)
 		{
-			if(str_cmp(token, envname) == 0)
+			if (str_cmp(token, envname) == 0)
 				return (strtok(NULL, "\0"));
 		}
 		envp++;
@@ -50,21 +52,21 @@ char *get_envar(const char *envname, char **arenv)
 	return (NULL);
 }
 /**
- *
- *
+ * callMyFunc - call the function needed
+ * @command: command
+ * Return: the function needed
  */
-int (*callMyFunc(char *))(int ac, char **args, char ***env, int status)
+int (*callMyFunc(char *command))(int ac, char **args, char ***env, int status)
 {
 	int i = 0;
 	funcbuild_t b[] = {
 		{"exit", exitt},
 		{"env", printenv},
-		{"cd", cdd},
 		{NULL, NULL}
 	};
 	while (i < 4)
 	{
-		if (!str_cmp(b[i].cmd, c))
+		if (!str_cmp(b[i].cmd, command))
 			return (b[i].func);
 		i++;
 	}
@@ -73,11 +75,12 @@ int (*callMyFunc(char *))(int ac, char **args, char ***env, int status)
 
 
 /**
- *
- *
- * 
+ * getPath - give path of giving command
+ * @cmd: command
+ * @pathenv: value of path environnement variable
+ * Return: path of command or null
  */
-char getPath(char *cmd)
+char getPath(char *cmd, char *pathenv)
 {
 	char *path, *pathcpy, tokens;
 	int len_cmd, len_path;
@@ -113,8 +116,13 @@ char getPath(char *cmd)
 	return (NULL);
 
 }
-/*
- *
+/**
+ * exectcmd - execute the command
+ * @ac: number of arguments
+ * @av: array of args
+ * @envpt: array of environnemet variable
+ * @status: previous status
+ * Return: status
  */
 void exectcmd(int ac, char **av, char ***envpt, int status)
 {
@@ -122,8 +130,7 @@ void exectcmd(int ac, char **av, char ***envpt, int status)
 	int (*myfunc)(int ac, char **args, char ***envpt, int st);
 	pid_t pid;
 	char *cmd = NULL, *envpath = NULL;
-	
-	envpath = get_envar("PATH", *envpt)
+envpath = get_envar("PATH", *envpt);
 	if (av != NULL)
 	{
 		myfunc = callMyFunc(av[1]);

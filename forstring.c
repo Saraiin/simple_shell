@@ -41,6 +41,7 @@ char *str_dup(char *s)
  * numberOfToken - calculate number of tokes in line
  * @line: line to check
  * @separator: delim that separete tokens
+ * Return: number of taokens
  */
 int numberOfToken(char *line, const char *separator)
 {
@@ -59,6 +60,7 @@ int numberOfToken(char *line, const char *separator)
  * str_cpy - copy string
  * @dest: printer to destination where to copy
  * @src: printer to the original string
+ * Return: new string
  */
 char *str_cpy(char *dest, char *src)
 {
