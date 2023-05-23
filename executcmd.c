@@ -3,6 +3,56 @@
  *
  *
  */
+char * get_env(const char *envname)
+{
+	char **var, **envp = environ;
+
+	while (envp != NULL)
+	{
+		var = strtok(*envp, "=");
+	if (variable)
+	{
+		if(str_cmp(*var, envname) == 0)
+			return (*(var + 1 ));
+	}
+	free(var);
+	envp++;
+	}
+	free(envp);
+	return (NULL);
+}
+/**
+ *
+ *
+ *
+ */
+char *get_envar(const char *envname, char **arenv)
+{
+	char **envp = arenv;
+	char *var;
+	char *token;
+
+	while (envp != NULL)
+	{
+		var = str_dup(*envp);
+		if (!var)
+			return (NULL);
+		token = strtok(var, "=");
+		if (token)
+		{
+			if(str_cmp(token, envname) == 0)
+				return (strtok(NULL, "\0"));
+		}
+		envp++;
+		free(var);
+	}
+	free(envp);
+	return (NULL);
+}
+/**
+ *
+ *
+ */
 int (*getMyFunc(char *))(int ac, char **args, char ***env, int status)
 {
 	int i = 0;
