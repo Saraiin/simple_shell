@@ -44,4 +44,5 @@ typedef struct funcbuild
 /* print env variable */
 int printenv(int ac, char **args, char ***ptenv, int status);
 int str_cmp(char *s1, const char *s2);
+char getPath(char *cmd, char *pathenv);
 #endif
