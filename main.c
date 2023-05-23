@@ -6,7 +6,7 @@
 /**
  * main - function main
  * @ac: number of arg
- * @av: array
+ * @argv: array
  * Return: 0
  */
 int main(int ac, char **argv)
@@ -26,10 +26,10 @@ int main(int ac, char **argv)
 			printf("exiting little shell\n");
 			return (-1);
 		}
-		buffLinecpy = malloc (sizeof(char) * totalchar);
+		buffLinecpy = malloc(sizeof(char) * totalchar);
 		if (buffLinecpy == NULL)
 		{
-			perror ("ALLOCATE MEMORY ERROR!");
+			perror("ALLOCATE MEMORY ERROR!");
 			return (-1);
 		}
 		buffLinecpy = str_dup(buffLine);

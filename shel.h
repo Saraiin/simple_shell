@@ -18,7 +18,13 @@ char *str_cpy(char *dest, char *src);
 char **splitline(char *line, char *linecpy);
 int numberOfToken(char *line, const char *separator);
 /*executer*/
-void exectcmd(char **args);
+void exectcmd(int ac, char **av, char ***envpt, int status);
+char getPath(char *cmd);
+int (*callMyFunc(char *))(int ac, char **args, char ***env, int status);
+char *get_envar(const char *envname, char **arenv);
+char *str_cat(char *s1, char *s2);
+int str_cmp(char *s1, const char *s2);
+int printenv(int ac, char **args, char ***ptenv, int status);
 /*building functions*/
 /*exit*/
 int checkdegit(int n);
