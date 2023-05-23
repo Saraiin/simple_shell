@@ -34,7 +34,7 @@ int printenv(int ac, char **args, char ***ptenv, int status)
 	}
 	while (*envp != NULL)
 	{
-		write(STDOUT_FILENO, *envp, str_lrn(*envp));
+		write(STDOUT_FILENO, *envp, str_len(*envp));
 		write(STDOUT_FILENO, "\n", 1);
 		envp++;
 	}
