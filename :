@@ -15,7 +15,7 @@ int str_len(char *s);
 char *str_dup(char *s);
 char *str_cpy(char *dest, char *src);
 /*parsing the input line */
-char **splitline(char *line, char *envpt, int st);
+char **splitline(char *line, char *linecpy);
 int numberOfToken(char *line, const char *separator);
 /*executer*/
 int exectcmd(char *xe, char **av, char ***envpt);
@@ -28,7 +28,7 @@ int printenv(int ac, char **args, char ***ptenv, int status);
 /*building functions*/
 /*exit*/
 int checkdegit(int n);
-int exitt(char *exe, int ac, char **args, char **envpt, int st);
+int exitt(int ac, char **args, char ***ptenv, int prstatus);
 int atoii(char *str);
 
 /**
@@ -50,8 +50,4 @@ void freeit(char **ar, int index);
 int checksprt(char a, const char s);
 int getArlen(char **args);
 void exitcmd(int status, char **av, char *line, char **c);
-char **getAllCmd(char *line);
-int changeVar(char **args, char **e, int st);
-char *convertnum(int n, int base, int checkcasse);
-void cmtignore(char *line);
 #endif

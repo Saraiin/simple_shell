@@ -139,7 +139,7 @@ char *convertnum(int n, int base, int checkcasse)
 	static char buff[50];
 	
 
-	digitsb = upper_o_n ? "0123456789ABCDEF" :
+	digitsb = checkcasse ? "0123456789ABCDEF" :
 			"0123456789abcdef";
 
 	convert = &buffer[49];
