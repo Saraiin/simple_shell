@@ -46,4 +46,5 @@ int printenv(int ac, char **args, char ***ptenv, int status);
 int str_cmp(char *s1, const char *s2);
 extern char **environ;
 char **str_tok(char *s, const char *separator);
+void freeit(char **ar, int index);
 #endif

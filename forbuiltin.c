@@ -35,34 +35,37 @@ int atoii(char *str)
 /**
  * exitt - to exit the current process
  * @ac: number of argument
+ * @exe: name of executable
  * @args: pointer to array of pointer to arguments
- * @ptenv: pointer of environnement variables
- * @prstatus: status of the previous command
+ * @envpt: pointer of environnement variables
+ * @st: status of the previous command
  * Return: 0 success
  */
-int exitt(int ac, char **args, char ***ptenv, int prstatus)
+int exitt(char *exe, int ac, char **args, char **envpt, int st)
 {
-	int i, status = 0;
+	int j, status = 200;
 
-	(void)ptenv;
-	if (ac > 3)
+	(void)envpt;
+	if (ac > 2)
 	{
 		write(STDERR_FILENO, "exit statuts error", 18);
 		return (1);
 	}
-	if (args[2] != NULL)
+	if (args[1] != NULL)
 	{
-		for (i = 0; args[2][i] != '\0'; i++)
+		for (j = 0; args[1][j] != '\0'; j++)
 		{
-			if (i == 0 && args[2][i] == '-')
+			if (j == 0 && as[1][j] == '-')
 				continue;
-			if (!checkdegit(args[2][i]))
+			if (!checkdegit(args[1][j]))
+			{
 				write(STDERR_FILENO, "exit: numeric argument needed", 29);
-			return (2);
+				return (2);
+			}
 		}
-		status = atoii(args[2]);
+		status = atoi(args[1]);
 	}
-	else
-		status = prstatus;
-	exit(status);
+	else if (st != 0)
+		status = st;
+	return (status);
 }

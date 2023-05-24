@@ -45,10 +45,9 @@ int main(__attribute__((unsude)) int ac, char **av)
 				else
 					status = exetcmd(av[0], args, e);
 			}
-			freeargs(args);
+			freeit(args);
 		}
-		freeargs(command);
-
+		freeit(command);
 	}
 	free(buffLine), return (0);
 }
@@ -68,4 +67,19 @@ int getArlen(char **args)
 	}
 	return (n);
 }
-
+/**
+ * exitcmd - exit command
+ * @status: exit status
+ * @av: array of arguments
+ * @line: line
+ * @c: command
+ */
+void exitcmd(int status, char **av, char *line, char **c)
+{
+	freeit(av);
+	free(line);
+	freeit(cmd);
+	if (status == 200)
+		exit(0);
+	exit(status);
+}

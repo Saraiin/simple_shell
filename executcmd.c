@@ -2,54 +2,34 @@
 /**
  * get_env - get environnment variable
  * @envname: name of the environnement variable
+ * @arenv: arrat of environnemet variable
  * Return: environnment variable value
  */
-char *get_env(const char *envname)
+char *get_env(const char *envname, char **arenv)
 {
-	char **var;
-	char **envp = environ;
+	char **envpt = arenv;
+	char *var, *tokens = NULL, *path;
 
-	while (envp != NULL)
+	while (*envpt)
 	{
-		var = strtok(*envp, "=");
-	if (var)
-	{
-		if (str_cmp(*var, envname) == 0)
-			return (*(var + 1));
-	}
-	free(var);
-	envp++;
-	}
-	free(envp);
-	return (NULL);
-}
-/**
- * get_envar - get env variable
- * @envname: env variable's name
- * @arenv: array of environnement variable
- * Return: environnement variable value
- */
-char *get_envar(const char *envname, char **arenv)
-{
-	char **envp = arenv;
-	char *var;
-	char *token;
-
-	while (envp != NULL)
-	{
-		var = str_dup(*envp);
-		if (!var)
+		var = malloc(sizeof(char) * (str_len(*envpt) + 1));
+		if (var == NULL)
 			return (NULL);
-		token = strtok(var, "=");
-		if (token)
+		str_cpy(var, *envpt);
+		tokens = strtok(var, "=");
+		if (tokens != NULL && str_cmp(tokens, envname) == 0)
 		{
-			if (str_cmp(token, envname) == 0)
-				return (strtok(NULL, "\0"));
+			tokens = strtok(NULL, "\0");
+			path = malloc(sizeof(char) * (str_len(tokens) + 1));
+			if (path == NULL)
+				return (NULL);
+			str_cpy(path, tokens);
+			free(var);
+			return (path);
 		}
-		envp++;
+		envpt++;
 		free(var);
 	}
-	free(envp);
 	return (NULL);
 }
 /**
@@ -57,7 +37,7 @@ char *get_envar(const char *envname, char **arenv)
  * @command: command
  * Return: the function needed
  */
-int (*callMyFunc(char *command))(int ac, char **args, char ***env, int status)
+int (*callMyFunc(char *command))(int *x, int nb, char **args, char **env, int status)
 {
 	int i = 0;
 	funcbuild_t b[] = {
@@ -88,7 +68,11 @@ char *getPath(char *cmd, char *pathenv)
 	struct stat buff;
 
 	if (stat(cmd, &buff) == 0)
-		return (cmd);
+	{
+		path = malloc(sizeof(char) * (str_len(cmd) + 1));
+		str_cpy(path, cmd);
+		return (path);
+	}
 	pathcpy = str_dup(pathenv);
 	if (pathcpy == NULL)
 		return (NULL);
@@ -125,45 +109,39 @@ char *getPath(char *cmd, char *pathenv)
  * @status: previous status
  * Return: status
  */
-int exectcmd(int ac, char **av, char ***envpt, int status)
+int exectcmd(char *xe, char **av, char ***envpt)
 {
-	int st;
-	int (*myfunc)(int ac, char **args, char ***envpt, int st);
-	pid_t pid;
-	char *cmd = NULL, *envpath = NULL;
-envpath = get_envar("PATH", *envpt);
+	int status;
+	pid_t pidChild;
+	char *command = NULL, *envpath = NULL;
+
 	if (av != NULL)
 	{
-		myfunc = callMyFunc(av[1]);
-		if (myfunc != NULL)
-			return (myfunc(ac, av, envpt, status));
-		cmd = getPath(av[1], envpath);
+		path = get_env("PATH", e);
+		command = getPath(av[0], path);
 		if (cmd != NULL)
 		{
 			pid = fork();
-			if (pid == -1)
+			if (pidChild == -1)
 			{
-				perror("ERROR : fork");
+				perror("ERROR : Failure -> fork");
 				return (1);
 			}
 			if (pid == 0)
 			{
-				if (execve(cmd, av + 1, *envpt) == -1)
+				if (execve(command, av, *envpt) == -1)
 				{
-					free(cmd);
 					perror("ERROR : execve");
 					exit(errno);
 				}
 			}
-			wait(&st);
+			wait(&status);
+			free(path);
 			free(cmd);
-			return (WEXITSTATUS(st));
+			return (WEXITSTATUS(status));
 		}
-		else
-		{
 			write(STDERR_FILENO, "command not found", 17);
 			return (127);
-		}
 	}
 	return (0);
 }
