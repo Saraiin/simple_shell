@@ -23,6 +23,7 @@ int (*callMyFunc(char *))(int ac, char **args, char ***env, int status);
 char *get_envar(const char *envname, char **arenv);
 char *str_cat(char *s1, char *s2);
 int str_cmp(char *s1, const char *s2);
+char *getPath(char *cmd, char *pathenv);
 int printenv(int ac, char **args, char ***ptenv, int status);
 /*building functions*/
 /*exit*/
@@ -37,12 +38,11 @@ int atoii(char *str);
  */
 typedef struct funcbuild
 {
-	char cmd;
+	char *cmd;
 	int (*func)(int ac, char **args, char ***ptenv, int status);
 } funcbuild_t;
 /* print env variable */
 int printenv(int ac, char **args, char ***ptenv, int status);
 int str_cmp(char *s1, const char *s2);
-char getPath(char *cmd, char *pathenv);
 extern char **environ;
 #endif

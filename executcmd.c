@@ -6,12 +6,13 @@
  */
 char *get_env(const char *envname)
 {
-	char **var, **envp = environ;
+	char **var;
+	char **envp = environ;
 
 	while (envp != NULL)
 	{
 		var = strtok(*envp, "=");
-	if (variable)
+	if (var)
 	{
 		if (str_cmp(*var, envname) == 0)
 			return (*(var + 1));
@@ -80,9 +81,9 @@ int (*callMyFunc(char *command))(int ac, char **args, char ***env, int status)
  * @pathenv: value of path environnement variable
  * Return: path of command or null
  */
-char getPath(char *cmd, char *pathenv)
+char *getPath(char *cmd, char *pathenv)
 {
-	char *path, *pathcpy, tokens;
+	char *path, *pathcpy, *tokens = NULL;
 	int len_cmd, len_path;
 	struct stat buff;
 
@@ -95,8 +96,8 @@ char getPath(char *cmd, char *pathenv)
 	tokens = strtok(pathcpy, ":");
 	while (tokens != NULL)
 	{
-		path_len = str_len(tokens);
-		path = malloc(len_cmd + path_len + 2);
+		len_path = str_len(tokens);
+		path = malloc(len_cmd + len_path + 2);
 		if (!path)
 		{
 			perror("malloc path");
@@ -136,7 +137,7 @@ envpath = get_envar("PATH", *envpt);
 		myfunc = callMyFunc(av[1]);
 		if (myfunc != NULL)
 			return (myfunc(ac, av, envpt, status));
-		cmd = getPath(argv[1], envpath);
+		cmd = getPath(av[1], envpath);
 		if (cmd != NULL)
 		{
 			pid = fork();
@@ -163,5 +164,6 @@ envpath = get_envar("PATH", *envpt);
 			write(STDERR_FILENO, "command not found", 17);
 			return (127);
 		}
-		return (0);
+	}
+	return (0);
 }
