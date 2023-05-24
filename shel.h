@@ -19,7 +19,6 @@ char **splitline(char *line, char *linecpy);
 int numberOfToken(char *line, const char *separator);
 /*executer*/
 void exectcmd(int ac, char **av, char ***envpt, int status);
-char getPath(char *cmd);
 int (*callMyFunc(char *))(int ac, char **args, char ***env, int status);
 char *get_envar(const char *envname, char **arenv);
 char *str_cat(char *s1, char *s2);
@@ -45,4 +44,5 @@ typedef struct funcbuild
 int printenv(int ac, char **args, char ***ptenv, int status);
 int str_cmp(char *s1, const char *s2);
 char getPath(char *cmd, char *pathenv);
+extern char **environ;
 #endif

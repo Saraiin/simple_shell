@@ -9,9 +9,9 @@
  * @argv: array
  * Return: 0
  */
-int main(int ac, char **argv)
+int main(void)
 {
-	int totalchar, i, len = 2;
+	int totalchar, len = 2, status = 0;
 	char **e = environ;
 	char *buffLine, *buffLinecpy, **av;
 	size_t length;
@@ -34,7 +34,7 @@ int main(int ac, char **argv)
 		}
 		buffLinecpy = str_dup(buffLine);
 		av = splitline(buffLine, buffLinecpy);
-		status = exectcmd(n, av, &e, status);
+		status = exectcmd(len, av, &e, status);
 	}
 	free(buffLinecpy);
 	free(buffLine);

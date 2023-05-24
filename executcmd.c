@@ -112,7 +112,7 @@ char getPath(char *cmd, char *pathenv)
 		tokens = strtok(NULL, ":");
 	}
 	free(pathcpy);
-	free(token);
+	free(tokens);
 	return (NULL);
 
 }
@@ -124,7 +124,7 @@ char getPath(char *cmd, char *pathenv)
  * @status: previous status
  * Return: status
  */
-void exectcmd(int ac, char **av, char ***envpt, int status)
+int exectcmd(int ac, char **av, char ***envpt, int status)
 {
 	int st;
 	int (*myfunc)(int ac, char **args, char ***envpt, int st);
@@ -156,7 +156,7 @@ envpath = get_envar("PATH", *envpt);
 			}
 			wait(&st);
 			free(cmd);
-			return (WEEXITSTATUS(st));
+			return (WEXITSTATUS(st));
 		}
 		else
 		{

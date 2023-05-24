@@ -31,7 +31,9 @@ int str_cmp(char *s1, const char *s2)
 int printenv(int ac, char **args, char ***ptenv, int status)
 {
 	char **envp = *ptenv;
-
+	
+	(void)args;
+	(void)status;
 	if (ac > 2)
 	{
 		write(STDERR_FILENO, "error : env", str_len("error : env"));

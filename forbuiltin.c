@@ -1,4 +1,4 @@
-#include "shel.c"
+#include "shel.h"
 /**
  *checkdegit - checks if the character is degit
  * @n: character to check
@@ -6,7 +6,7 @@
  */
 int checkdegit(int n)
 {
-	if (n >= 48 && c <= 57)
+	if (n >= 48 && n <= 57)
 		return (1);
 	return (0);
 }
@@ -25,8 +25,8 @@ int atoii(char *str)
 	{
 		if (str[i] == '-')
 			signe = -(signe);
-		else if (str[i] >= 48 && s[i] <= 57)
-			convert = 10 * convert + (s[i] - '0');
+		else if (str[i] >= 48 && str[i] <= 57)
+			convert = 10 * convert + (str[i] - '0');
 		else if (convert != 0)
 			break;
 	}
@@ -44,6 +44,7 @@ int exitt(int ac, char **args, char ***ptenv, int prstatus)
 {
 	int i, status = 0;
 
+	(void)ptenv;
 	if (ac > 3)
 	{
 		write(STDERR_FILENO, "exit statuts error", 18);
@@ -55,7 +56,7 @@ int exitt(int ac, char **args, char ***ptenv, int prstatus)
 		{
 			if (i == 0 && args[2][i] == '-')
 				continue;
-			if (!checkdigit(args[2][i]))
+			if (!checkdegit(args[2][i]))
 				write(STDERR_FILENO, "exit: numeric argument needed", 29);
 			return (2);
 		}
