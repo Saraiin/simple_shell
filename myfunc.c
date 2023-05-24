@@ -34,7 +34,7 @@ int printenv(int ac, char **args, char ***ptenv, int status)
 	
 	(void)args;
 	(void)status;
-	if (ac > 2)
+	if (ac > 1)
 	{
 		write(STDERR_FILENO, "error : env", str_len("error : env"));
 		write(STDOUT_FILENO, "\n", 1);
