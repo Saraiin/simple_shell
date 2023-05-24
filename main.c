@@ -6,15 +6,17 @@
 /**
  * main - function main
  * @ac: number of arg
- * @argv: array
+ * @av: array
  * Return: 0
  */
-int main(void)
+int main(__attribute__((unsude)) int ac, char **av)
 {
-	int totalchar, len = 2, status = 0;
-	char **e = environ;
-	char *buffLine, *buffLinecpy, **av;
+	int i, len = 0, status = 0;
+	char **e = environ, **command = NULL;
+	char *buffLine = NULL, *buffLinecpy = NULL, **args = NULL;
 	size_t length;
+	ssize_t totalchar = 0;
+	int (*func)(char *x, int ac, char **args, char ***ptenv, int status)
 
 	while (1)
 	{
@@ -26,17 +28,44 @@ int main(void)
 			printf("exiting little shell\n");
 			return (-1);
 		}
-		buffLinecpy = malloc(sizeof(char) * totalchar);
-		if (buffLinecpy == NULL)
+		command = getAllCmd(buffLinecpy);
+		for (i = 0; command[i] != NULL; i++)
 		{
-			perror("ALLOCATE MEMORY ERROR!");
-			return (-1);
+			args = splitecmd(command[i], e, status);
+			len = getArLen(args);
+			if (len > 0)
+			{
+				func = callMyFunc(args[0]);
+				if (func)
+				{
+					status = func(av[0], len, args, e, status);
+					if (status != 0)
+						exitcmd(status, args, buffLine, command);
+				}
+				else
+					status = exetcmd(av[0], args, e);
+			}
+			freeargs(args);
 		}
-		buffLinecpy = str_dup(buffLine);
-		av = splitline(buffLine, buffLinecpy);
-		status = exectcmd(len, av, &e, status);
+		freeargs(command);
+
 	}
-	free(buffLinecpy);
-	free(buffLine);
-	return (0);
+	free(buffLine), return (0);
 }
+/**
+ * getArlen - get length of array of pointers
+ * @args: pointer of pointer to arguments
+ * Return: number of args
+ */
+int getArlen(char **args)
+{
+	int n = 0;
+
+	while (args)
+	{
+		n++;
+		args++;
+	}
+	return (n);
+}
+
