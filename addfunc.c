@@ -22,7 +22,6 @@ int checksprt(char a, const char *s)
  * @s: string to split
  * @separator: separator
  * Return: array of pointers to tokens
- 
 char **str_tok(char *s, const char *separator)
 {
 	char *token;
