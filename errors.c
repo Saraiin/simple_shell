@@ -17,7 +17,7 @@ void showerrors(char *exe, char *msg)
 	}
 	str_cpy(error, exe);
 	str_cat(error, ": ");
-	str_cat(error, desc);
+	str_cat(error, msg);
 	str_cat(error, "\n\0");
 	write(STDERR_FILENO, error, str_len(error));
 	free(error);
