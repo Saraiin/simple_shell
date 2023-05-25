@@ -16,10 +16,10 @@ int str_len(char *s);
 char *str_dup(char *s);
 char *str_cpy(char *dest, char *src);
 /*parsing the input line */
-char **splitline(char *line, char *envpt, int st);
+char **splitline(char *line, char **envpt, int st);
 int numberOfToken(char *line, const char *separator);
 /*executer*/
-int exectcmd(char *xe, char **av, char ***envpt);
+int exectcmd(char *xe, char **av, char **envpt);
 int (*callMyFunc(char *command))(int *x, int nb, char **args, char **env, int status);
 char *get_env(const char *envname, char **arenv);
 char *str_cat(char *s1, char *s2);
