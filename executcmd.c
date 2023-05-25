@@ -102,11 +102,10 @@ char *getPath(char *cmd, char *pathenv)
 
 }
 /**
- * exectcmd - execute the command
- * @ac: number of arguments
+ * exectcmd - execute the command²
  * @av: array of args
  * @envpt: array of environnemet variable
- * @status: previous status
+ * @xe: name of executable
  * Return: status
  */
 int exectcmd(char *xe, char **av, char **envpt)
@@ -115,7 +114,6 @@ int exectcmd(char *xe, char **av, char **envpt)
 	pid_t pidChild;
 	char *command = NULL, *envpath = NULL;
 
-	(void)xe;
 	if (av != NULL)
 	{
 		envpath = get_env("PATH", envpt);
@@ -125,14 +123,14 @@ int exectcmd(char *xe, char **av, char **envpt)
 			pidChild = fork();
 			if (pidChild == -1)
 			{
-				perror("ERROR : Failure -> fork");
+				showerrors(xe, "Fork error");
 				return (1);
 			}
 			else if (pidChild == 0)
 			{
 				if (execve(command, av, envpt) == -1)
 				{
-					perror("ERROR : execve");
+					perror(xe);
 					exit(errno);
 				}
 			}
@@ -142,9 +140,8 @@ int exectcmd(char *xe, char **av, char **envpt)
 			return (WEXITSTATUS(status));
 		}
 		free(envpath);
-		free(command);	
-		write(STDERR_FILENO, "command not found", 17);
-		return (127);
+		free(command);
+		return (cmdnotfound(xe, av));
 	}
 	return (0);
 }

@@ -2,7 +2,8 @@
 /**
  * splitline - split line into argument
  * @line:line to split
- * @linecpy: copy of line
+ * @st: previous status
+ * @envpt: pointer to environnement variable
  * Return: array of argument
  */
 char **splitline(char *line, char **envpt, int st)
@@ -51,8 +52,7 @@ char **getAllCmd(char *line)
 	char *linecpy, *token = NULL, **commands;
 	int nbTokens = 0, i = 0, k;
 	const char *sp = ";";
-	
-	cmtignore(line);
+cmtignore(line);
 	linecpy = malloc(sizeof(char) * (str_len(line) + 1));
 	if (!linecpy)
 		return (NULL);
@@ -137,9 +137,7 @@ char *convertnum(int n, int base, int checkcasse)
 	char *convert;
 	static char *digitsb;
 	static char buff[50];
-	
-
-	digitsb = checkcasse ? "0123456789ABCDEF" :
+digitsb = checkcasse ? "0123456789ABCDEF" :
 			"0123456789abcdef";
 
 	convert = &buff[49];

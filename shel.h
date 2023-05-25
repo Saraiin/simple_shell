@@ -36,7 +36,7 @@ void freelist(char **ar, int i);
  * struct Node - struct forenv var
  * @name: name of env var
  * @value: value ofit
- * @nex: pointerto the next
+ * @next: pointerto the next
  */
 typedef struct Node
 {
