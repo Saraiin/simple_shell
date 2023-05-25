@@ -65,4 +65,6 @@ char **getAllCmd(char *line);
 int changeVar(char **args, char **e, int st);
 char *convertnum(int n, int base, int checkcasse);
 void cmtignore(char *line);
+void showerrors(char *exe, char *msg);
+int cmdnotfound(char *exe, char **av);
 #endif
