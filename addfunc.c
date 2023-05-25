@@ -22,7 +22,7 @@ int checksprt(char a, const char *s)
  * @s: string to split
  * @separator: separator
  * Return: array of pointers to tokens
- */
+ 
 char **str_tok(char *s, const char *separator)
 {
 	char *token;
@@ -56,7 +56,7 @@ char **str_tok(char *s, const char *separator)
 					while (k >= 0)
 						freelist(token, k);
 				}
-				for (j = start; l = 0; j <= end; j++; l++)
+				for (j = start; l = 0; j <= end; j++, l++)
 					token[k][l] = s[j];
 				token[k][l] = '\0';
 				tlen = 0, k++;
@@ -66,7 +66,7 @@ char **str_tok(char *s, const char *separator)
 	token[k] = NULL;
 	return (token);
 }
-
+*/
 /**
  * freeit - free an array of string
  * @ar: an array of strings

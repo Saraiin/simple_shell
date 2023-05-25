@@ -37,7 +37,7 @@ char *get_env(const char *envname, char **arenv)
  * @command: command
  * Return: the function needed
  */
-int (*callMyFunc(char *command))(int *x, int nb, char **args, char **env, int status)
+int (*callMyFunc(char *command))(char *x, int nb, char **args, char **env, int status)
 {
 	int i = 0;
 	funcbuild_t b[] = {
@@ -45,7 +45,7 @@ int (*callMyFunc(char *command))(int *x, int nb, char **args, char **env, int st
 		{"env", printenv},
 		{NULL, NULL}
 	};
-	while (i < 4)
+	while (i < 2)
 	{
 		if (!str_cmp(b[i].cmd, command))
 			return (b[i].func);
@@ -115,21 +115,22 @@ int exectcmd(char *xe, char **av, char **envpt)
 	pid_t pidChild;
 	char *command = NULL, *envpath = NULL;
 
+	(void)xe;
 	if (av != NULL)
 	{
-		envpath = get_env("PATH", e);
-		command = getPath(av[0], path);
-		if (cmd != NULL)
+		envpath = get_env("PATH", envpt);
+		command = getPath(av[0], envpath);
+		if (command != NULL)
 		{
-			pid = fork();
+			pidChild = fork();
 			if (pidChild == -1)
 			{
 				perror("ERROR : Failure -> fork");
 				return (1);
 			}
-			if (pid == 0)
+			else if (pidChild == 0)
 			{
-				if (execve(command, av, *envpt) == -1)
+				if (execve(command, av, envpt) == -1)
 				{
 					perror("ERROR : execve");
 					exit(errno);
@@ -137,11 +138,13 @@ int exectcmd(char *xe, char **av, char **envpt)
 			}
 			wait(&status);
 			free(envpath);
-			free(cmd);
+			free(command);
 			return (WEXITSTATUS(status));
 		}
-			write(STDERR_FILENO, "command not found", 17);
-			return (127);
+		free(envpath);
+		free(command);	
+		write(STDERR_FILENO, "command not found", 17);
+		return (127);
 	}
 	return (0);
 }

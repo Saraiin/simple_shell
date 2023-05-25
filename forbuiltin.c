@@ -46,6 +46,7 @@ int exitt(char *exe, int ac, char **args, char **envpt, int st)
 	int j, status = 200;
 
 	(void)envpt;
+	(void)exe;
 	if (ac > 2)
 	{
 		write(STDERR_FILENO, "exit statuts error", 18);
@@ -55,7 +56,7 @@ int exitt(char *exe, int ac, char **args, char **envpt, int st)
 	{
 		for (j = 0; args[1][j] != '\0'; j++)
 		{
-			if (j == 0 && as[1][j] == '-')
+			if (j == 0 && args[1][j] == '-')
 				continue;
 			if (!checkdegit(args[1][j]))
 			{
@@ -63,7 +64,7 @@ int exitt(char *exe, int ac, char **args, char **envpt, int st)
 				return (2);
 			}
 		}
-		status = atoi(args[1]);
+		status = atoii(args[1]);
 	}
 	else if (st != 0)
 		status = st;

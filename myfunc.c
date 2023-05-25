@@ -28,12 +28,13 @@ int str_cmp(char *s1, const char *s2)
  * @status: status
  * Return: environnement variable
  */
-int printenv(int ac, char **args, char ***ptenv, int status)
+int printenv(char *exe, int ac, char **args, char **ptenv, int status)
 {
-	char **envp = *ptenv;
+	char **envp = ptenv;
 	
 	(void)args;
 	(void)status;
+	(void)exe;
 	if (ac > 1)
 	{
 		write(STDERR_FILENO, "error : env", str_len("error : env"));

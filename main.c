@@ -16,7 +16,7 @@ int main(__attribute__((unused)) int ac, char **av)
 	char *buffLine = NULL, *buffLinecpy = NULL, **args = NULL;
 	size_t length;
 	ssize_t totalchar = 0;
-	int (*func)(char *x, int ac, char **args, char ***ptenv, int status);
+	int (*func)(char *x, int ac, char **args, char **ptenv, int status);
 
 	while (1)
 	{
