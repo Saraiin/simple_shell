@@ -9,14 +9,14 @@
  * @av: array
  * Return: 0
  */
-int main(__attribute__((unsude)) int ac, char **av)
+int main(__attribute__((unused)) int ac, char **av)
 {
 	int i, len = 0, status = 0;
 	char **e = environ, **command = NULL;
 	char *buffLine = NULL, *buffLinecpy = NULL, **args = NULL;
 	size_t length;
 	ssize_t totalchar = 0;
-	int (*func)(char *x, int ac, char **args, char ***ptenv, int status)
+	int (*func)(char *x, int ac, char **args, char ***ptenv, int status);
 
 	while (1)
 	{
@@ -25,14 +25,14 @@ int main(__attribute__((unsude)) int ac, char **av)
 		if (totalchar == -1)
 		{
 			free(buffLine);
-			printf("exiting little shell\n");
+			write(1, "exiting lil shell :)", 18);
 			return (-1);
 		}
 		command = getAllCmd(buffLinecpy);
 		for (i = 0; command[i] != NULL; i++)
 		{
-			args = splitecmd(command[i], e, status);
-			len = getArLen(args);
+			args = splitline(command[i], e, status);
+			len = getArlen(args);
 			if (len > 0)
 			{
 				func = callMyFunc(args[0]);
@@ -43,13 +43,14 @@ int main(__attribute__((unsude)) int ac, char **av)
 						exitcmd(status, args, buffLine, command);
 				}
 				else
-					status = exetcmd(av[0], args, e);
+					status = exectcmd(av[0], args, e);
 			}
 			freeit(args);
 		}
 		freeit(command);
 	}
-	free(buffLine), return (0);
+	free(buffLine);
+	return (0);
 }
 /**
  * getArlen - get length of array of pointers
@@ -78,7 +79,7 @@ void exitcmd(int status, char **av, char *line, char **c)
 {
 	freeit(av);
 	free(line);
-	freeit(cmd);
+	freeit(c);
 	if (status == 200)
 		exit(0);
 	exit(status);

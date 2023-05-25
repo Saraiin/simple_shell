@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 
 /* for string */
@@ -30,7 +31,7 @@ int printenv(int ac, char **args, char ***ptenv, int status);
 int checkdegit(int n);
 int exitt(char *exe, int ac, char **args, char **envpt, int st);
 int atoii(char *str);
-
+void freelist(char **ar, int i);
 /**
  * struct funcbuild - struct for command functions
  * @cmd: command
@@ -46,7 +47,7 @@ int printenv(int ac, char **args, char ***ptenv, int status);
 int str_cmp(char *s1, const char *s2);
 extern char **environ;
 char **str_tok(char *s, const char *separator);
-void freeit(char **ar, int index);
+void freeit(char **ar);
 int checksprt(char a, const char s);
 int getArlen(char **args);
 void exitcmd(int status, char **av, char *line, char **c);

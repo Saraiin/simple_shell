@@ -109,7 +109,7 @@ char *getPath(char *cmd, char *pathenv)
  * @status: previous status
  * Return: status
  */
-int exectcmd(char *xe, char **av, char ***envpt)
+int exectcmd(char *xe, char **av, char **envpt)
 {
 	int status;
 	pid_t pidChild;
@@ -117,7 +117,7 @@ int exectcmd(char *xe, char **av, char ***envpt)
 
 	if (av != NULL)
 	{
-		path = get_env("PATH", e);
+		envpath = get_env("PATH", e);
 		command = getPath(av[0], path);
 		if (cmd != NULL)
 		{
@@ -136,7 +136,7 @@ int exectcmd(char *xe, char **av, char ***envpt)
 				}
 			}
 			wait(&status);
-			free(path);
+			free(envpath);
 			free(cmd);
 			return (WEXITSTATUS(status));
 		}

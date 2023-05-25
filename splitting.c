@@ -5,7 +5,7 @@
  * @linecpy: copy of line
  * Return: array of argument
  */
-char **splitline(char *line, char *envpt, int st)
+char **splitline(char *line, char **envpt, int st)
 {
 	char *token = NULL;
 	int i = 0, num_Tokens = 0, k;
@@ -16,7 +16,7 @@ char **splitline(char *line, char *envpt, int st)
 	if (linecpy == NULL)
 		return (NULL);
 	strcpy(linecpy, line);
-	num_Tokens = numberOfTokens(linecpy, separator);
+	num_Tokens = numberOfToken(linecpy, separator);
 	args = malloc(sizeof(char *) * (num_Tokens + 1));
 	if (args == NULL)
 		return (NULL);
@@ -27,13 +27,13 @@ char **splitline(char *line, char *envpt, int st)
 		if (args[i] == NULL)
 		{
 			for (k = 0; k < i; k++)
-				free(args[j]);
+				free(args[k]);
 			free(args);
 			free(linecpy);
 			return (NULL);
 		}
 		str_cpy(args[i], token);
-		token = strtok(NULL, delim);
+		token = strtok(NULL, separator);
 	}
 	args[i] = NULL;
 	changeVar(args, envpt, st);
@@ -68,7 +68,7 @@ char **getAllCmd(char *line)
 		if (commands[i] == NULL)
 		{
 			for (k = 0; k < i; k++)
-				free(cmds[k]);
+				free(commands[k]);
 			free(commands);
 			free(linecpy);
 			return (NULL);
@@ -142,7 +142,7 @@ char *convertnum(int n, int base, int checkcasse)
 	digitsb = checkcasse ? "0123456789ABCDEF" :
 			"0123456789abcdef";
 
-	convert = &buffer[49];
+	convert = &buff[49];
 	*convert = '\0';
 
 	do {
@@ -162,7 +162,7 @@ void cmtignore(char *line)
 
 	for (k = 0; line[k] != '\0'; k++)
 	{
-		if (line[k] == '#' && (i == 0 || line[k - 1] == ' '))
+		if (line[k] == '#' && (k == 0 || line[k - 1] == ' '))
 		{
 			line[k] = '\0';
 			return;
