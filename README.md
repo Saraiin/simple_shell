@@ -19,3 +19,5 @@ functions:
 > PARSING/SPLITTING INPUT:
 1. parseit: splite line command into arguments
 2. parseAllcmd: parse line with ;
+> TO EXECUTE THE GIVEN COMMAND :
+1. execut
