@@ -1,4 +1,10 @@
 #include "shell.h"
+/**
+ * showerror - shows error
+ * @exe: executable
+ * @desc: descriptionof errors
+ * Return: error
+ */
 void showerror(char *exe, char *desc)
 {
 	char *error;

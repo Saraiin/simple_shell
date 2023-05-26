@@ -34,7 +34,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 			len = array_len(av);
 			if (len > 0)
 			{
-				p_func = callMyfunc(av[0]);
+				f = callMyfunc(av[0]);
 				if (f != NULL)
 				{
 					status = f(argv[0], len, av, e, status);
