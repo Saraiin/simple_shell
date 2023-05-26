@@ -20,7 +20,7 @@ char **splitline(char *line, char **envpt, int st);
 int numberOfToken(char *line, const char *separator);
 /*executer*/
 int exectcmd(char *xe, char **av, char **envpt);
-int (*callMyFunc(char *command))(char *x, int nb, char **args, char **env, int status);
+int (*callMyFunc(char *cd))(char *x, int nb, char **args, char **env, int s);
 char *get_env(const char *envname, char **arenv);
 char *str_cat(char *s1, char *s2);
 int str_cmp(char *s1, const char *s2);
@@ -67,4 +67,5 @@ char *convertnum(int n, int base, int checkcasse);
 void cmtignore(char *line);
 void showerrors(char *exe, char *msg);
 int cmdnotfound(char *exe, char **av);
+void prtsignal(int sg);
 #endif

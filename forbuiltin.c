@@ -44,12 +44,13 @@ int atoii(char *str)
 int exitt(char *exe, int ac, char **args, char **envpt, int st)
 {
 	int j, status = 200;
+	char* error;
 
 	(void)envpt;
-	(void)exe;
+	
 	if (ac > 2)
 	{
-		write(STDERR_FILENO, "exit statuts error", 18);
+		showerrors(exe, "Usage: exit status");
 		return (1);
 	}
 	if (args[1] != NULL)
@@ -60,7 +61,12 @@ int exitt(char *exe, int ac, char **args, char **envpt, int st)
 				continue;
 			if (!checkdegit(args[1][j]))
 			{
-				write(STDERR_FILENO, "exit: numeric argument needed", 29);
+				error = malloc(sizeof(char) * (str_len(args[1]) + 35));
+				str_cpy(error, "exit: ");
+				str_cat(error, args[1]);
+				str_cat(error, ": numeric argument required");
+				showerrors(exe, error);
+				free(error);
 				return (2);
 			}
 		}

@@ -44,3 +44,14 @@ void freelist(char **ar, int i)
 		free(ar[--i]);
 	free(ar);
 }
+
+/**
+ * prtsignal - prints a new line when a signal SIGINT is sent
+ * @sg: the sent signal
+ */
+
+void prtsignal(int sg)
+{
+	if (sg == SIGINT)
+		write(STDIN_FILENO, "\nlittle_shell ->  ", 17);
+}

@@ -37,7 +37,7 @@ char *get_env(const char *envname, char **arenv)
  * @command: command
  * Return: the function needed
  */
-int (*callMyFunc(char *command))(char *x, int nb, char **args, char **env, int status)
+int (*callMyFunc(char *cd))(char *x, int nb, char **args, char **env, int s)
 {
 	int i = 0;
 	funcbuild_t b[] = {
@@ -47,7 +47,7 @@ int (*callMyFunc(char *command))(char *x, int nb, char **args, char **env, int s
 	};
 	while (i < 2)
 	{
-		if (!str_cmp(b[i].cmd, command))
+		if (!str_cmp(b[i].cmd, cd))
 			return (b[i].func);
 		i++;
 	}
@@ -64,7 +64,6 @@ int (*callMyFunc(char *command))(char *x, int nb, char **args, char **env, int s
 char *getPath(char *cmd, char *pathenv)
 {
 	char *path, *pathcpy, *tokens = NULL;
-	int len_cmd, len_path;
 	struct stat buff;
 
 	if (stat(cmd, &buff) == 0)
@@ -73,19 +72,18 @@ char *getPath(char *cmd, char *pathenv)
 		str_cpy(path, cmd);
 		return (path);
 	}
-	pathcpy = str_dup(pathenv);
+	pathcpy = malloc(sizeof(char) * (str_len(pathenv) + 1));
 	if (pathcpy == NULL)
 		return (NULL);
-	len_cmd = str_len(cmd);
+	str_cpy(pathcpy, pathenv);
 	tokens = strtok(pathcpy, ":");
 	while (tokens != NULL)
 	{
-		len_path = str_len(tokens);
-		path = malloc(len_cmd + len_path + 2);
+		path = malloc(sizeof(char) * (str_len(tokens) + str_len(cmd) + 2));
 		if (!path)
 		{
 			perror("malloc path");
-			free(tokens);
+			free(pathcpy);
 			return (NULL);
 		}
 		str_cpy(path, tokens);
@@ -93,11 +91,14 @@ char *getPath(char *cmd, char *pathenv)
 		str_cat(path, cmd);
 		str_cat(path, "\0");
 		if (stat(path, &buff) == 0)
+		{
+			free(pathcpy);
 			return (path);
+		}
 		tokens = strtok(NULL, ":");
+		free(path);
 	}
 	free(pathcpy);
-	free(tokens);
 	return (NULL);
 
 }

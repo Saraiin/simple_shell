@@ -13,22 +13,23 @@ int main(__attribute__((unused)) int ac, char **av)
 {
 	int i, len = 0, status = 0;
 	char **e = environ, **command = NULL;
-	char *buffLine = NULL, *buffLinecpy = NULL, **args = NULL;
+	char *buffLine = NULL, **args = NULL;
 	size_t length;
 	ssize_t totalchar = 0;
 	int (*func)(char *x, int ac, char **args, char **ptenv, int status);
 
+	signal(SIGINT, prtsignal);
 	while (1)
 	{
-		write(1, "little_shell:)", 14);
+		if (isatty(STDIN_FILENO) == 1)
+		write(STDOUT_FILENO, "little_shell ->  ", 17);
 		totalchar = getline(&buffLine, &length, stdin);
-		if (totalchar == -1)
+		if (totalchar < 0)
 		{
 			free(buffLine);
-			write(1, "exiting lil shell :)", 18);
 			return (-1);
 		}
-		command = getAllCmd(buffLinecpy);
+		command = getAllCmd(buffLine);
 		for (i = 0; command[i] != NULL; i++)
 		{
 			args = splitline(command[i], e, status);
@@ -49,7 +50,6 @@ int main(__attribute__((unused)) int ac, char **av)
 		}
 		freeit(command);
 	}
-	free(buffLine);
 	return (0);
 }
 /**
