@@ -5,5 +5,5 @@ functions:
 Command	Description
 exitit	- The command to exit the shell.
 - Usage : exit status (where status is an integer used to exit the shell).
-printenv - The command to print  environment variable
+showenv - The command to print  environment variable
 - Usage : print envitronment variable
