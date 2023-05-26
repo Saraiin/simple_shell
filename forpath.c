@@ -14,7 +14,7 @@ void creatPath(char *dirPath, char *cmd, char *path)
 	str_cat(path, "\0");
 }
 /**
- * _which - locate a command
+ * showpath - locate a command
  * @cmd: the giving command
  * @envPath: the value of PATH environnement variable
  * Return: the path of the command or NULL if that not exists

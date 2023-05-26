@@ -36,7 +36,7 @@ int is_digit(int c)
 	return (0);
 }
 /**
- * convert_number - converts an integer to a specific base
+ * convertnum - converts an integer to a specific base
  * @n: the giving integer
  * @base: the base to be converted to
  * @upper_o_n: indicates if output upper od lower case
