@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * execmd - executes the giving command
+ * execut - executes the giving command
  * @exe: executable name
  * @av: an array of arguments
  * @e: an array of environement variables

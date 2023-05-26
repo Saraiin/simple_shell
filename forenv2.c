@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * my_env - print environment variables
+ * showenv - print environment variables
  * @exe: executable name
  * @ac: number of arguments
  * @as: a pointer of pointers to arguments
