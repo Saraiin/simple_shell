@@ -10,4 +10,9 @@ functions:
 2. showenv:   print  environment variable
 3. showpath: to locate a command
 4. creatPath: to build the commad path
-> FOR STRING
+> FOR STRING :
+1. str-len: length of a string
+2. str-cpy
+3. str-dup
+4. str-cat
+5. str-cmp
