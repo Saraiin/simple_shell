@@ -16,3 +16,6 @@ functions:
 3. str-dup
 4. str-cat
 5. str-cmp
+> PARSING/SPLITTING INPUT:
+1. parseit: splite line command into arguments
+2. parseAllcmd: parse line with ;
