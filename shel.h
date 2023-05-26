@@ -68,4 +68,6 @@ void cmtignore(char *line);
 void showerrors(char *exe, char *msg);
 int cmdnotfound(char *exe, char **av);
 void prtsignal(int sg);
+void prmp(void);
+void creatpath(char *d, char *cmd, char *path);
 #endif

@@ -53,5 +53,37 @@ void freelist(char **ar, int i)
 void prtsignal(int sg)
 {
 	if (sg == SIGINT)
-		write(STDIN_FILENO, "\nlittle_shell ->  ", 17);
+		write(STDIN_FILENO, "\n$ ", 3);
+}
+/**
+ * getArlen - get length of array of pointers
+ * @args: pointer of pointer to arguments
+ * Return: number of args
+ */
+int getArlen(char **args)
+{
+        int n = 0;
+
+        while (args)
+        {
+                n++;
+                args++;
+        }
+        return (n);
+}
+/**
+ * exitcmd - exit command
+ * @status: exit status
+ * @av: array of arguments
+ * @line: line
+ * @c: command
+ */
+void exitcmd(int status, char **av, char *line, char **c)
+{
+        freeit(av);
+        free(line);
+        freeit(c);
+        if (status == 200)
+                exit(0);
+        exit(status);
 }

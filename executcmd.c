@@ -39,12 +39,14 @@ char *get_env(const char *envname, char **arenv)
  */
 int (*callMyFunc(char *cd))(char *x, int nb, char **args, char **env, int s)
 {
-	int i = 0;
+	int i;
 	funcbuild_t b[] = {
 		{"exit", exitt},
 		{"env", printenv},
 		{NULL, NULL}
 	};
+
+	i = 0;
 	while (i < 2)
 	{
 		if (!str_cmp(b[i].cmd, cd))
@@ -86,10 +88,7 @@ char *getPath(char *cmd, char *pathenv)
 			free(pathcpy);
 			return (NULL);
 		}
-		str_cpy(path, tokens);
-		str_cat(path, "/");
-		str_cat(path, cmd);
-		str_cat(path, "\0");
+		creatpath(tokens, cmd, path);
 		if (stat(path, &buff) == 0)
 		{
 			free(pathcpy);
@@ -101,6 +100,19 @@ char *getPath(char *cmd, char *pathenv)
 	free(pathcpy);
 	return (NULL);
 
+}
+/**
+ * creatpath - build the command path
+ * @d: the giving directory path
+ * @cmd: the giving command
+ * @path: the command path
+ */
+void creatpath(char *d, char *cmd, char *path)
+{
+	str_cpy(path, d);
+	str_cat(path, "/");
+	str_cat(path, cmd);
+	str_cat(path, "\0");
 }
 /**
  * exectcmd - execute the command²

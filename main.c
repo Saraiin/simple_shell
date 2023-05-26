@@ -14,20 +14,19 @@ int main(__attribute__((unused)) int ac, char **av)
 	int i, len = 0, status = 0;
 	char **e = environ, **command = NULL;
 	char *buffLine = NULL, **args = NULL;
-	size_t length;
+	size_t length = 0;
 	ssize_t totalchar = 0;
 	int (*func)(char *x, int ac, char **args, char **ptenv, int status);
 
 	signal(SIGINT, prtsignal);
 	while (1)
 	{
-		if (isatty(STDIN_FILENO) == 1)
-		write(STDOUT_FILENO, "little_shell ->  ", 17);
+		prmp();
 		totalchar = getline(&buffLine, &length, stdin);
 		if (totalchar < 0)
 		{
 			free(buffLine);
-			return (-1);
+			exit(0);
 		}
 		command = getAllCmd(buffLine);
 		for (i = 0; command[i] != NULL; i++)
@@ -51,36 +50,4 @@ int main(__attribute__((unused)) int ac, char **av)
 		freeit(command);
 	}
 	return (0);
-}
-/**
- * getArlen - get length of array of pointers
- * @args: pointer of pointer to arguments
- * Return: number of args
- */
-int getArlen(char **args)
-{
-	int n = 0;
-
-	while (args)
-	{
-		n++;
-		args++;
-	}
-	return (n);
-}
-/**
- * exitcmd - exit command
- * @status: exit status
- * @av: array of arguments
- * @line: line
- * @c: command
- */
-void exitcmd(int status, char **av, char *line, char **c)
-{
-	freeit(av);
-	free(line);
-	freeit(c);
-	if (status == 200)
-		exit(0);
-	exit(status);
 }

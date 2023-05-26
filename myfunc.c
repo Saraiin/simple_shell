@@ -47,3 +47,11 @@ int printenv(char *exe, int ac, char **args, char **ptenv, int status)
 	}
 	return (0);
 }
+/**
+ * prmp - prints the prompt string
+ */
+void prmp(void)
+{
+	if (isatty(STDIN_FILENO) == 1)
+		write(STDOUT_FILENO, "$ ", 2);
+}

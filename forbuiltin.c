@@ -44,7 +44,7 @@ int atoii(char *str)
 int exitt(char *exe, int ac, char **args, char **envpt, int st)
 {
 	int j, status = 200;
-	char* error;
+	char *error;
 
 	(void)envpt;
 	
